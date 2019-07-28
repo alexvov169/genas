@@ -16,12 +16,19 @@ F -> 'a' | 'b' | '(' E ')'
   (F ("a") ("b") ("(" E ")")))
 ~~~
 
-The depth of recursive rules expansion may be specified with setting gobal variable ```lisp *recursive-depth*```
+The depth of recursive rules expansion may be specified with setting global variable `*recursive-depth*`
 
 
 # Usage example
 
 ~~~lisp
+GENASENT> (let ((*recursive-depth* 0))
+	    (generate-all-sentences-by-cfg
+	     'S '((S (E))
+		  (E (T "+" E) (T))
+		  (T (F "*" T) (F))
+		  (F ("a") ("b") ("(" E ")")))))
+("a" "b")
 GENASENT> (let ((*recursive-depth* 1))
 	    (generate-all-sentences-by-cfg
 	     'S '((S (E))
